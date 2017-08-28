@@ -8,6 +8,8 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+.DS_Store
+
 # Windows Installer files
 *.cab
 *.msi
@@ -19,7 +21,7 @@ $RECYCLE.BIN/
 
 # =========================
 # Operating System Files
-# =========================
+ =========================
 
 # OSX
 # =========================

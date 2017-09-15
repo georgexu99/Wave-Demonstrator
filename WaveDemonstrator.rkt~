@@ -78,20 +78,16 @@
 (check-expect (update-lofl LOL1)
               (list (make-loop (loop-x L0) (loop-y L0) (+ (loop-r L0) R-PLUS))))
 (check-expect (update-lofl LOL2)
-              (list (make-loop (loop-x L0) (loop-y L0) (+ R-PLUS (loop-r L0)))
-                    (make-loop (loop-x L1) (loop-y L1) (+ R-PLUS (loop-r L1)))))
+               (list (make-loop (loop-x L0) (loop-y L0) (+ R-PLUS (loop-r L0)))
+                     (make-loop (loop-x L1) (loop-y L1) (+ R-PLUS (loop-r L1)))))
 
 ; (define (update-lofl lofl) empty) ; stub
 
-(define (update-lofl lol0)
-  ;; result is type: (listof Loop)
-  ;; interp. the accumulated result of the updated loops
-  (local [(define (fn-for-lol lol result)
-            (cond [(empty? lol) result]
-                  [else
-                   (fn-for-lol (rest lol) (append result (list (update-one (first lol)))))]))]
-    (fn-for-lol lol0 empty)))
-           
+(define (update-lofl lol)
+  (cond [(empty? lol) empty]
+        [else
+         (cons (update-one (first lol))
+               (update-lofl (rest lol)))]))
 
 ;; Loop -> Loop
 ;; consumes single loop, adds R-PLUS to r-field
@@ -135,7 +131,7 @@
   (cond [(or (mouse=?  me "button-down") (mouse=? me "drag")) (cons (make-loop x y 0) lofl)]
         [else lofl]))
 
-;; (main empty) ; Uncomment this line to run the world program
+(main empty)
 
 
 

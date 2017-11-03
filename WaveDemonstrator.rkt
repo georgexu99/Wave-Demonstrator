@@ -57,9 +57,6 @@
          (... (fn-for-loop (first lol))
               (fn-for-lofl (rest lol)))]))
 
-
-
-
 ;; FUNCTIONS
 ;; =========
 
@@ -83,14 +80,8 @@
 
 ; (define (update-lofl lofl) empty) ; stub
 
-(define (update-lofl lol0)
-  ;; result is type: (listof Loop)
-  ;; interp. the accumulated result of the updated loops
-  (local [(define (fn-for-lol lol result)
-            (cond [(empty? lol) result]
-                  [else
-                   (fn-for-lol (rest lol) (append result (list (update-one (first lol)))))]))]
-    (fn-for-lol lol0 empty)))
+(define (update-lofl lol)
+  (map update-one lol))
            
 
 ;; Loop -> Loop
@@ -115,10 +106,7 @@
 ; (define (draw-lofl lofl) empty-image) ; stub
 
 (define (draw-lofl lol)
-  (cond [(empty? lol) MTS]
-        [else
-         (draw-loop (first lol)
-                    (draw-lofl (rest lol)))]))
+  (foldl draw-loop MTS lol))
 
 ;; Loop Image -> Image
 ;; consumes a loop and image, puts the loop on the given image
